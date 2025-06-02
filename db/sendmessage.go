@@ -1,15 +1,16 @@
 package db
 
-import "chatapp/model"
+import (
+	"chatapp/model"
+	"time"
+)
 
-
-func (r *userRepo) GetUserByID(id string) (bool, error) {
-	var exists bool
-	query := `SELECT EXISTS(SELECT 1 FROM signup WHERE id = $1)`
-	err := r.db.QueryRow(query,id ).Scan(&exists)
-	return exists, err
-}
-
-func (r *userRepo) SendMessage(message model.Message) (string,err){
-	
+func (r *userRepo) SendMessage(message model.Message,id string) (string, error) {
+	query := `INSERT INTO send (senderid, receiverid, message, time) VALUES ($1, $2, $3, $4)`
+	_, err := r.db.Exec(query,id, message.Receiverid, message.Message, time.Now())
+	if err != nil {
+		return "", err
+	} else {
+		return "Message Sent Successfully", nil
+	}
 }

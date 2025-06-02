@@ -15,7 +15,7 @@ func main() {
 
 	dbLayer := db.NewUserRepository(dbConn)
 	serviceLayer := authservice.NewAuthService(dbLayer)
-	routerLayer := router.NewRouter(serviceLayer,serviceLayer)
+	routerLayer := router.NewRouter(serviceLayer, serviceLayer)
 
 	r := gin.Default()
 	routerLayer.RoutersSetup(r)

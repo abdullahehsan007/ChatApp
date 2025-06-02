@@ -14,8 +14,8 @@ func (h *routerImpl) SendMessage() gin.HandlerFunc {
 			ctx.JSON(http.StatusBadRequest, gin.H{"error": "Data not in JSON"})
 			return
 		}
-
-		err := h.service.SendMessage(ctx, message)
+        
+		_,err:= h.service.SendMessage(ctx, message, TokenString)
 		if err != nil {
 			ctx.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
 			return

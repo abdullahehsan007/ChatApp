@@ -13,6 +13,6 @@ type User struct {
 type Message struct {
 	Senderid   string `json:"senderid"`
 	Receiverid string `json:"recieverid"`
-	Message    string `json: "message"`
+	Message    string `json:"message"`
 	Time       string `json:"time"`
 }

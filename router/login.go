@@ -8,6 +8,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+var TokenString string
+var Refresh string
+
 func (h *routerImpl) Login() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var entry model.User
@@ -21,7 +24,7 @@ func (h *routerImpl) Login() gin.HandlerFunc {
 			return
 		}
 
-		tokenString, refresh, err := authservice.CreateToken(id)
+		TokenString, Refresh, err = authservice.CreateToken(id)
 		if err != nil {
 			ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate token"})
 			return
@@ -29,8 +32,8 @@ func (h *routerImpl) Login() gin.HandlerFunc {
 
 		ctx.JSON(http.StatusOK, gin.H{
 			"message":       "Login Successful",
-			"Token":         tokenString,
-			"Refresh Token": refresh,
+			"Token":         TokenString,
+			"Refresh Token": Refresh,
 		})
 	}
 }

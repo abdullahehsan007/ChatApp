@@ -11,7 +11,7 @@ type UserRepository interface {
 	CreateUser(user model.Info) error
 	GetId(email string) (string, error)
 	GetUserData(email string) (string, string, error)
-	GetUserByID(id string) (bool, error)
+    SendMessage(message model.Message,id string) (string, error)
 }
 
 type userRepo struct {

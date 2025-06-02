@@ -13,6 +13,7 @@ type AuthService interface {
 	Authenticator(credential model.User) (string, error)
 	Authorize(token string) (bool, string, error)
 	BearerToken(header string) string
+	SendMessage(ctx *gin.Context, user model.Message, Token string) (string,error)
 }
 
 type authService struct {
