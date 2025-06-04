@@ -15,6 +15,8 @@ type Service interface {
 	SignUp(ctx *gin.Context, user model.Info) error
 	Login(email, password string) (string, error)
 	SendMessage(ctx *gin.Context, user model.Message, Token string) (string, error)
+	GetMessage(ctx *gin.Context, get model.Get, Token string) (string, error)
+
 }
 
 type routerImpl struct {

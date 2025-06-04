@@ -1,7 +1,8 @@
 package authservice
 
 import (
-	"chatapp/db"
+	mongodb "chatapp/db/MongoDB"
+	postgresql "chatapp/db/Postgresql"
 	"chatapp/model"
 
 	"github.com/gin-gonic/gin"
@@ -13,13 +14,15 @@ type AuthService interface {
 	Authenticator(credential model.User) (string, error)
 	Authorize(token string) (bool, string, error)
 	BearerToken(header string) string
-	SendMessage(ctx *gin.Context, user model.Message, Token string) (string,error)
+	SendMessage(ctx *gin.Context, user model.Message, Token string) (string, error)
+	GetMessage(ctx *gin.Context, get model.Get, Token string) (string, error)
 }
 
 type authService struct {
-	repo db.UserRepository
+	repo  postgresql.UserRepository
+	mongo mongodb.MessageRepository
 }
 
-func NewAuthService(repo db.UserRepository) AuthService {
+func NewAuthService(repo postgresql.UserRepository) AuthService {
 	return &authService{repo: repo}
 }

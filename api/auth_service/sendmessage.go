@@ -14,7 +14,7 @@ func (s *authService) SendMessage(ctx *gin.Context, user model.Message, Token st
 		return "", err
 	} else {
 		user.Senderid = id
-		remarks, err := s.repo.SendMessage(user, id)
+		remarks, err := s.mongo.SendMessage(user, id)
 		if err!=nil{
 			return "",err
 		}else{

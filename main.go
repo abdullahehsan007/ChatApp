@@ -2,7 +2,9 @@ package main
 
 import (
 	authservice "chatapp/api/auth_service"
-	"chatapp/db"
+	mongodb "chatapp/db/MongoDB"
+	postgresql "chatapp/db/Postgresql"
+
 	"chatapp/router"
 	"log"
 
@@ -10,10 +12,12 @@ import (
 )
 
 func main() {
-	dbConn := db.Database()
+	
+	mongodb.Connect()
+	dbConn := postgresql.Database()
 	defer dbConn.Close()
 
-	dbLayer := db.NewUserRepository(dbConn)
+	dbLayer := postgresql.NewUserRepository(dbConn)
 	serviceLayer := authservice.NewAuthService(dbLayer)
 	routerLayer := router.NewRouter(serviceLayer, serviceLayer)
 

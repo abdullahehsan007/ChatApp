@@ -1,4 +1,4 @@
-package db
+package postgresql
 
 func (r *userRepo) GetId(email string) (string, error) {
 	var id string

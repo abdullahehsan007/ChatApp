@@ -16,3 +16,6 @@ type Message struct {
 	Message    string `json:"message"`
 	Time       string `json:"time"`
 }
+type Get struct{
+		Receiverid string `json:"recieverid"`
+}
