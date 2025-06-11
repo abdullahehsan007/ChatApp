@@ -5,10 +5,10 @@ import (
 )
 
 func (r *routerImpl) RoutersSetup(router *gin.Engine) {
-	router.POST("/signup", r.handleSignUp)
-	router.POST("/login", r.Login())
-	router.POST("/auth", r.Authorize())
-	router.POST("/ref", r.Refresh())
-	router.POST("/send", r.Authorize(),r.SendMessage())
+	router.POST("/signup", r.service.handleSignUp)
+	router.POST("/login", r.service.Login())
+	router.POST("/auth", r.service.Authorize())
+	router.POST("/ref", r.service.Refresh())
+	router.POST("/send", r.service.Authorize(), r.service.SendMessage())
 	router.Run(":8080")
 }

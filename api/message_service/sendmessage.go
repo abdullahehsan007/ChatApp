@@ -1,4 +1,4 @@
-package authservice
+package messageservice
 
 import (
 	"chatapp/model"
@@ -8,16 +8,16 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-func (s *authService) SendMessage(ctx *gin.Context, user model.Message, Token string) (string, error) {
+func (s *messageService) SendMessage(ctx *gin.Context, user model.Message, Token string) (string, error) {
 	id, err := DecodeToken(Token)
 	if err != nil {
 		return "", err
 	} else {
 		user.Senderid = id
-		remarks, err := s.mongo.SendMessage(user, id)
-		if err!=nil{
-			return "",err
-		}else{
+		remarks, err := s.mongorepo.SendMessage(user, id)
+		if err != nil {
+			return "", err
+		} else {
 			return remarks, nil
 		}
 	}

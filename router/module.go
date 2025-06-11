@@ -2,7 +2,7 @@ package router
 
 import (
 	authservice "chatapp/api/auth_service"
-	"chatapp/model"
+	messageservice "chatapp/api/message_service"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,21 +12,31 @@ type Router interface {
 }
 
 type Service interface {
-	SignUp(ctx *gin.Context, user model.Info) error
-	Login(email, password string) (string, error)
-	SendMessage(ctx *gin.Context, user model.Message, Token string) (string, error)
-	GetMessage(ctx *gin.Context, get model.Get, Token string) (string, error)
-
+	handleSignUp(ctx *gin.Context)
+	Login() gin.HandlerFunc
+	Refresh() gin.HandlerFunc
+	Authorize() gin.HandlerFunc
+	SendMessage() gin.HandlerFunc
 }
 
 type routerImpl struct {
-	service     Service
-	authService authservice.AuthService
+	service Service
 }
 
-func NewRouter(service Service, authService authservice.AuthService) Router {
+type serviceImpl struct {
+	authService    authservice.AuthService
+	messageService messageservice.MessageService
+}
+
+func NewRouter(service Service) Router {
 	return &routerImpl{
-		service:     service,
-		authService: authService,
+		service: service,
+	}
+}
+
+func NewService(authService authservice.AuthService, messageService messageservice.MessageService) Service {
+	return &serviceImpl{
+		authService:    authService,
+		messageService: messageService,
 	}
 }

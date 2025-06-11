@@ -8,15 +8,13 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func (r *MessageRepository) SendMessage(message model.Message, senderID string) (string, error) {
+func (r *messageRepository) SendMessage(message model.Message, senderID string) (string, error) {
 	// Create a MongoDB document
 	msgDocument := bson.M{
 		"senderId":    senderID,
 		"receiverId":  message.Receiverid,
 		"message":     message.Message,
 		"timestamp":   time.Now(),
-		"isDelivered": false,
-		"isRead":      false,
 	}
 
 	// Insert into MongoDB

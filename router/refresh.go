@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (h *routerImpl) Refresh() gin.HandlerFunc {
+func (h *serviceImpl) Refresh() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		refreshToken := ctx.PostForm("r_token")
 		if refreshToken == "" {

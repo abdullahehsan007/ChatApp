@@ -11,14 +11,14 @@ import (
 var TokenString string
 var Refresh string
 
-func (h *routerImpl) Login() gin.HandlerFunc {
+func (h *serviceImpl) Login() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var entry model.User
 		if err := ctx.ShouldBindJSON(&entry); err != nil {
 			ctx.JSON(http.StatusBadRequest, gin.H{"error": "Data not in JSON"})
 			return
 		}
-		id, err := h.service.Login(entry.Email, entry.Password)
+		id, err := h.authService.Login(entry.Email, entry.Password)
 		if err != nil {
 			ctx.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
 			return

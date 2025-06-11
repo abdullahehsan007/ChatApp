@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (r *routerImpl) Authorize() gin.HandlerFunc {
+func (r *serviceImpl) Authorize() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		token := r.authService.BearerToken(ctx.GetHeader("Authorization"))
 

@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 )
+
 func (s *authService) SignUp(ctx *gin.Context, user model.Info) error {
 	exists, err := s.repo.GetUser(user.Email)
 	if err != nil {

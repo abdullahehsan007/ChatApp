@@ -1,7 +1,6 @@
 package authservice
 
 import (
-	mongodb "chatapp/db/MongoDB"
 	postgresql "chatapp/db/Postgresql"
 	"chatapp/model"
 
@@ -14,15 +13,14 @@ type AuthService interface {
 	Authenticator(credential model.User) (string, error)
 	Authorize(token string) (bool, string, error)
 	BearerToken(header string) string
-	SendMessage(ctx *gin.Context, user model.Message, Token string) (string, error)
-	GetMessage(ctx *gin.Context, get model.Get, Token string) (string, error)
 }
 
 type authService struct {
-	repo  postgresql.UserRepository
-	mongo mongodb.MessageRepository
+	repo postgresql.UserRepository
 }
 
 func NewAuthService(repo postgresql.UserRepository) AuthService {
-	return &authService{repo: repo}
+	return &authService{
+		repo: repo,
+	}
 }

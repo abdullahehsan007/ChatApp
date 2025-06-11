@@ -7,13 +7,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (r *routerImpl) handleSignUp(ctx *gin.Context) {
+func (r *serviceImpl) handleSignUp(ctx *gin.Context) {
 	var user model.Info
 	if err := ctx.ShouldBindJSON(&user); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": "invalid input"})
 		return
 	}
-	if err := r.service.SignUp(ctx, user); err != nil {
+	if err := r.authService.SignUp(ctx, user); err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}

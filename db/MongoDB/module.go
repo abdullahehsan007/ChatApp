@@ -1,13 +1,19 @@
 package mongodb
 
-import "go.mongodb.org/mongo-driver/mongo"
+import (
+	"chatapp/model"
 
-type MessageRepository struct {
+	"go.mongodb.org/mongo-driver/mongo"
+)
+
+type MessageRepository interface {
+	SendMessage(message model.Message, senderID string) (string, error)
+}
+
+type messageRepository struct {
 	collection *mongo.Collection
 }
 
-func NewMessageRepository(db *mongo.Database, collectionName string) *MessageRepository {
-	return &MessageRepository{
-		collection: db.Collection(collectionName),
-	}
+func NewMessageRepository(collection *mongo.Collection) MessageRepository {
+	return &messageRepository{collection: collection}
 }
