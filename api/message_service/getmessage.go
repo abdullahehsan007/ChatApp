@@ -1,17 +1,17 @@
 package messageservice
 
-// func (s *authService) GetMessage(get model.Get, Token string) (string, error) {
-// 	//id, err := DecodeToken(Token)
-// 	// if err != nil {
-// 	// 	return "", err
-// 	// } else {
-// 	// 	get.Receiverid = id
-// 	// 	remarks, err := s.repo.(model.Message,id)
-// 	// 	if err != nil {
-// 	// 		return "", err
-// 	// 	} else {
-// 	// 		return remarks, nil
-// 	// 	}
-// 	// }
-// 	return id, err
-// }
+import "chatapp/model"
+
+func (s *messageService) GetMessage(get model.Get, Token string) ([]model.Message, error) {
+	id, err := DecodeToken(Token)
+	if err != nil {
+		return nil, err
+	}
+
+	messages, err := s.mongorepo.GetMessage(get, id)
+	if err != nil {
+		return nil, err
+	}
+
+	return messages, nil
+}

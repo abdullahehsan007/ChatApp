@@ -12,10 +12,10 @@ type User struct {
 }
 type Message struct {
 	Senderid   string `json:"senderid"`
-	Receiverid int `json:"recieverid"`
+	Receiverid string `json:"recieverid"`
 	Message    string `json:"message"`
 	Time       string `json:"time"`
 }
-type Get struct{
-		Receiverid string `json:"recieverid"`
+type Get struct {
+	Senderid string `json:"senderid"`
 }

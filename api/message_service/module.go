@@ -9,6 +9,7 @@ import (
 
 type MessageService interface {
 	SendMessage(ctx *gin.Context, user model.Message, Token string) (string, error)
+	GetMessage(get model.Get, Token string) ([]model.Message, error)
 	// GetMessage(get model.Get, Token string) (string, error)
 }
 

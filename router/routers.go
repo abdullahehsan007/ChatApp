@@ -10,5 +10,7 @@ func (r *routerImpl) RoutersSetup(router *gin.Engine) {
 	router.POST("/auth", r.service.Authorize())
 	router.POST("/ref", r.service.Refresh())
 	router.POST("/send", r.service.Authorize(), r.service.SendMessage())
+	router.POST("/get", r.service.Authorize(), r.service.GetMessage())
+	
 	router.Run(":8080")
 }

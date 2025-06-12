@@ -17,6 +17,7 @@ type Service interface {
 	Refresh() gin.HandlerFunc
 	Authorize() gin.HandlerFunc
 	SendMessage() gin.HandlerFunc
+	GetMessage() gin.HandlerFunc
 }
 
 type routerImpl struct {
